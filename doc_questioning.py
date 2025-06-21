@@ -16,7 +16,7 @@ st.title("📄 Question Answering App (CPU only)")
 query = st.text_input("Ask your question:")
 
 # Load and split documents
-loader = TextLoader("document.txt")
+loader = TextLoader("my_documents.txt")
 docs = loader.load()
 splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=50)
 splits = splitter.split_documents(docs)
