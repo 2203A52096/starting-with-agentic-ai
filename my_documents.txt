@@ -1,0 +1,104 @@
+
+1. Introduction
+Satellite image classification is essential in the fields of remote sensing and environmental monitoring. In this project, we used Convolutional Neural Networks (CNNs) to classify satellite images into four land cover categories: cloudy, desert, water, and green area.
+The goal of this project was to build a CNN model that could accurately distinguish between these different terrains using preprocessing, augmentation, and deep learning techniques.
+
+2. Dataset Description and Preparation
+The dataset is taken form Kaggle from Satellite Image Classification
+The dataset was provided in a ZIP archive and extracted using Python. It contained RGB satellite images grouped into four class folders, representing:
+•	cloudy
+•	desert
+•	water
+•	green area
+Each image was stored inside its corresponding class folder.
+There are 1500 images under each class. 
+The dataset has balanced distribution.
+Key Steps:
+•	Used Python's os module to list the folder names and image paths.
+•	Constructed a panda DataFrame to store the full image paths and their corresponding labels.
+Visualization:
+We displayed 5 sample grayscale and rgb images from each category using:
+•	cv2 for reading and conversion.
+•	matplotlib for plotting.
+3. Image Enhancement
+We enhanced the images using contrast and brightness adjustments:
+•	Contrast Adjustment: Applied using OpenCV's convertScaleAbs() with an alpha value of 1.8.
+•	Brightness Adjustment: Increased using a beta value of 60.
+Each image category was displayed in a 3-row layout:
+•	Row 1: Original grayscale image
+•	Row 2: Contrast-enhanced image
+•	Row 3: Brightness-enhanced image
+This helped visually analyze how simple transformations affected the image clarity.
+
+4. Data Preprocessing and Augmentation
+To improve training, we used Keras’ ImageDataGenerator for:
+•	Rescaling: Normalized pixel values to [0, 1].
+•	Augmentations:
+o	Rotation (up to 40 degrees)
+o	Width shift 20% 
+o	height shift 30%
+o	Zooming 20%
+o	Horizontal flipping
+Dataset Splits:
+•	Training Set: 75% of total data
+•	Validation Set: 25% of total data.
+•	Test Set: Sampled randomly with augmentation disabled.
+Images were resized to 75x75 pixels for compatibility with the CNN input layer.
+Found 4224 images belonging to 4 classes.
+Found 1407 images belonging to 4 classes.
+Found 5631 images belonging to 4 classes.
+In train set, validation set, and test set respectively.
+5. Model Architecture
+We built a custom CNN model, EfficientNet, MobileNet using TensorFlow/Keras with the following layers:
+Layers Used in CNN:
+•	Input Layer: Shape = (75, 75, 3)
+•	Conv2D + MaxPooling (x3): Extracts features and reduces dimensions.
+•	Flatten: Converts to 1D vector
+•	Dense (128 units): Fully connected layer with ReLU
+•	Dropout (0.5): Prevents overfitting
+•	Output Layer: Softmax activation with 4 neurons (for each class)
+Compilation:
+•	Loss Function: categorical_crossentropy (for multi-class)
+•	Optimizer: adam
+•	Evaluation Metric: accuracy
+EfficientNet, MobileNet are transfer learning models are trained for comparison.
+6. Model Training and Evaluation
+A basic Convolutional Neural Network (CNN) model was created.
+  It consisted of:
+•	3 Convolutional layers with ReLU activation.
+•	MaxPooling after each convolution to reduce feature size.
+•	Flatten layer to convert features into a single vector.
+•	Dense layers including a final output layer with softmax activation.
+  Input Image Size: (75, 75, 3)
+  Data Augmentation:
+Applied rotation, zooming, shifting, and flipping using ImageDataGenerator.
+  Training Details:
+•	Loss Function: Categorical Crossentropy
+•	Optimizer: Adam
+•	Metrics: Accuracy
+•	Epochs: 5( more epochs are leading to overfitting condition.)
+  Validation Strategy:
+25% of training data was used as validation data during training to monitor the model's generalization.
+  Transfer Learning Models Used:
+•	EfficientNet model was also trained on the same data and showed higher validation performance.
+•	MobileNet model was trained and gave the best validation performance among all models.
+After training, the CNN model was tested on unseen test data.
+Test Accuracy for CNN model: 89.20%
+ Additional testing with transfer learning models:
+•	EfficientNet Model Test Accuracy: 95%
+•	MobileNet Model Test Accuracy: 97%
+ Transfer learning models clearly outperformed the basic CNN model, proving they are highly effective for satellite image classification.
+ Testing was done on rescaled images without any augmentation to ensure fair evaluation.
+7. Conclusion
+We successfully trained a CNN model to classify satellite images into four classes: cloudy, desert, water, and green area. The model achieved high performance using basic preprocessing, augmentation, and training techniques.
+Achievements:
+•	Dataset exploration and visualization
+•	Image preprocessing and enhancement
+•	Data augmentation
+•	CNN, EfficientNet, MobileNet  design and training
+•	Highest accuracy achieved is 97% test accuracy.
+8. Future Improvements
+For further improvements:
+•	Deploy using Streamlit for a real-time image classification interface.
+•	Expand dataset with more classes and regions.
+•	Test performance using statistical test like z-test, t-test, p-test.
